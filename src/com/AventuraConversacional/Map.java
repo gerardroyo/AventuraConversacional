@@ -1,12 +1,11 @@
-package com.AventuraConversacional;
+/*package com.AventuraConversacional;
 
 public class Map {
     private String nom = "";
-    private Room []roomList;
 
 
 
-    public void instanciarObjsRooms() {
+    public static void instanciacioCuina() {
         Room cuina = new Room();
         Room magatzem = new Room();
         Room menjador = new Room();
@@ -15,8 +14,15 @@ public class Map {
         Room caballerisses = new Room();
         Room entrada = new Room();
         Room ball = new Room();
-        Room cuina = new Room();
+        Room gym = new Room();
         Room habJordiJor = new Room();
+
+        cuina.setId(1);
+
+    }
+
+    public void crearMapa() {
+
     }
 
     public String getNom() {
@@ -26,4 +32,4 @@ public class Map {
     public Room[] getRoomList() {
         return roomList;
     }
-}
+}*/
