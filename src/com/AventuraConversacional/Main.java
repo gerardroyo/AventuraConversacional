@@ -1,25 +1,34 @@
 package com.AventuraConversacional;
 
+import java.util.Scanner;
+
 public class Main {
 
     private static int capacitat = 10;
     private static Room rooms[]= new Room[capacitat];
+    private static Player jugador = new Player();
 
+    private static Scanner teclat = new Scanner(System.in);
+    private static PassarMayus toMayus = new PassarMayus();
+    private static CaracterCorrecte cc = new CaracterCorrecte();
 
-
-    private Player jugador;
+    private static char movJugador;
 
     public static void main(String[] args) {
 
-        crearMapa();
+        System.out.println("Instruccions de moviment: AMUNT(W), ESQUERRA(A), AVALL(S), DRETA(D), ESCALES(E) | Per sortir escriu (Q))");
 
+        crearMapa();
+        jugador.setOnEstic(rooms[7].getNom());
+        while (movJugador != 'Q' && movJugador != 'q') {
+            jugador();
+
+            moure();
+        }
+        System.out.println("Gracies per jugar!");
     }
 
     public static void crearMapa() {
-        System.out.println("hola");
-        System.out.println("hola");
-        System.out.println("hola");
-        System.out.println("hola");
         rooms[0] = new Room();
             rooms[0].setNom("cuina");
             rooms[0].setPortaNord(false);
@@ -69,7 +78,7 @@ public class Main {
             rooms[5].setEscalaAqui(false);
 
         rooms[6] = new Room();
-            rooms[6].setNom("entrada");
+            rooms[6].setNom("ball");
             rooms[6].setPortaNord(true);
             rooms[6].setPortaSud(false);
             rooms[6].setPortaEst(true);
@@ -77,7 +86,7 @@ public class Main {
             rooms[6].setEscalaAqui(false);
 
         rooms[7] = new Room();
-            rooms[7].setNom("ball");
+            rooms[7].setNom("entrada");
             rooms[7].setPortaNord(true);
             rooms[7].setPortaSud(false);
             rooms[7].setPortaEst(true);
@@ -99,7 +108,231 @@ public class Main {
             rooms[9].setPortaEst(false);
             rooms[9].setPortaOest(false);
             rooms[9].setEscalaAqui(true);
-        System.out.println("hola hola");
 
     }
+
+    public static void jugador() {
+        System.out.println("Estas situat a la habitació: " + jugador.getOnEstic());
+    }
+
+    public static void moure() {
+
+        boolean caracterIncorrecte = true;
+
+        char movJugadorMayus = ' ';
+
+        if (jugador.getOnEstic() == rooms[0].getNom()) {
+
+
+            System.out.println("Et pots moure cap a la DRETA/AVALL/ESCALES");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'D':
+                    jugador.setOnEstic(rooms[1].getNom());
+                    break;
+                case 'S':
+                    jugador.setOnEstic(rooms[3].getNom());
+                    break;
+                case 'E':
+                    jugador.setOnEstic(rooms[9].getNom());
+                    break;
+            }
+
+        } else if (jugador.getOnEstic() == rooms[1].getNom()) {
+            System.out.println("Et pots moure cap a l'ESQUERRA/DRETA/AVALL");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'A':
+                    jugador.setOnEstic(rooms[0].getNom());
+                    break;
+                case 'D':
+                    jugador.setOnEstic(rooms[2].getNom());
+                    break;
+                case 'S':
+                    jugador.setOnEstic(rooms[4].getNom());
+                    break;
+            }
+
+        } else if (jugador.getOnEstic() == rooms[2].getNom()) {
+            System.out.println("Et pots moure cap a l'ESQUERRA/AVALL");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'A':
+                    jugador.setOnEstic(rooms[1].getNom());
+                    break;
+                case 'S':
+                    jugador.setOnEstic(rooms[5].getNom());
+                    break;
+            }
+
+        } else if (jugador.getOnEstic() == rooms[3].getNom()) {
+            System.out.println("Et pots moure cap a la DRETA/AVALL/AMUNT");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'D':
+                    jugador.setOnEstic(rooms[4].getNom());
+                    break;
+                case 'S':
+                    jugador.setOnEstic(rooms[6].getNom());
+                    break;
+                case 'W':
+                    jugador.setOnEstic(rooms[0].getNom());
+                    break;
+            }
+
+        } else if (jugador.getOnEstic() == rooms[4].getNom()) {
+            System.out.println("Et pots moure cap a l'ESQUERRA/DRETA/AVALL/AMUNT");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'D':
+                    jugador.setOnEstic(rooms[5].getNom());
+                    break;
+                case 'S':
+                    jugador.setOnEstic(rooms[7].getNom());
+                    break;
+                case 'A':
+                    jugador.setOnEstic(rooms[3].getNom());
+                    break;
+                case 'W':
+                    jugador.setOnEstic(rooms[1].getNom());
+                    break;
+            }
+
+        } else if (jugador.getOnEstic() == rooms[5].getNom()) {
+            System.out.println("Et pots moure cap a l'ESQUERRA/AVALL/AMUNT");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'S':
+                    jugador.setOnEstic(rooms[8].getNom());
+                    break;
+                case 'A':
+                    jugador.setOnEstic(rooms[4].getNom());
+                    break;
+                case 'W':
+                    jugador.setOnEstic(rooms[2].getNom());
+                    break;
+            }
+
+        } else if (jugador.getOnEstic() == rooms[6].getNom()) {
+            System.out.println("Et pots moure cap a la DRETA/AMUNT");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'D':
+                    jugador.setOnEstic(rooms[7].getNom());
+                    break;
+                case 'W':
+                    jugador.setOnEstic(rooms[3].getNom());
+                    break;
+            }
+
+        } else if (jugador.getOnEstic() == rooms[7].getNom()) {
+            System.out.println("Et pots moure cap a l'ESQUERRA/DRETA/AMUNT");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'D':
+                    jugador.setOnEstic(rooms[8].getNom());
+                    break;
+                case 'A':
+                    jugador.setOnEstic(rooms[6].getNom());
+                    break;
+                case 'W':
+                    jugador.setOnEstic(rooms[4].getNom());
+                    break;
+            }
+
+        } else if (jugador.getOnEstic() == rooms[8].getNom()) {
+            System.out.println("Et pots moure cap a l'ESQUERRA/AMUNT");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'A':
+                    jugador.setOnEstic(rooms[7].getNom());
+                    break;
+                case 'W':
+                    jugador.setOnEstic(rooms[5].getNom());
+                    break;
+            }
+
+        } else if (jugador.getOnEstic() == rooms[9].getNom()) {
+            System.out.println("Et pots moure cap a les ESCALES");
+            System.out.println("On et vols moure?");
+
+            while (caracterIncorrecte == true) {
+                movJugador = teclat.next().charAt(0);
+                movJugadorMayus = toMayus.cadenaAMayus(movJugador);
+                caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            }
+
+            switch (movJugadorMayus) {
+                case 'E':
+                    jugador.setOnEstic(rooms[0].getNom());
+                    break;
+            }
+
+        }
+    }
+
+
 }
