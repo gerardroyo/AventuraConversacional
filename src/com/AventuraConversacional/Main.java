@@ -17,6 +17,9 @@ public class Main {
 
     public static void crearMapa() {
         System.out.println("hola");
+        System.out.println("hola");
+        System.out.println("hola");
+        System.out.println("hola");
         rooms[0] = new Room();
             rooms[0].setNom("cuina");
             rooms[0].setPortaNord(false);
