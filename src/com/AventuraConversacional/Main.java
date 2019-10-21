@@ -188,7 +188,6 @@ public class Main {
         int hiHaItemRoom;
         int hiHaItemJugador;
         String movJugadorMayus;
-        String itemAAgafar;
         String itemADeixar;
         String verbMenu;
 
@@ -222,44 +221,19 @@ public class Main {
                     break;
                 case "AGAFAR":
 
-                    if (hiHaItemRoom > 0) {
-                        System.out.println("Quin Item de l'habitació vols agafar?");
-                        itemAAgafar = teclat.next();
-                        teclat.nextLine();
-                        for (int i = 0; i < capacitatItems; i++) {
-                            if (itemAAgafar == items[i].getNom() && items[i].getOnEstic() == rooms[0].getNom()) {
-                                items[i].setOnEstic(jugador.getNom());
-                                 i = capacitatItems;
-                            }
-                        }
-                    } else {
-                        System.out.println("No pots fer aquesta acció perque no hi han Items a l'habitació");
-                    }
+                    algoritmeAgafar(hiHaItemRoom);
 
                     break;
                 case "DEIXAR":
 
-                    if (hiHaItemJugador > 0) {
-                        System.out.println("Quin Item de l'habitació vols agafar?");
-                        itemADeixar = teclat.next();
-                        teclat.nextLine();
-                        for (int i = 0; i < capacitatItems; i++) {
-                            if (itemADeixar == items[i].getNom() && items[i].getOnEstic() == jugador.getNom()) {
-                                items[i].setOnEstic(rooms[0].getNom());
-                                i = capacitatItems;
-                            }
-                        }
-
-                    } else {
-                        System.out.println("No pots fer aquesta acció perque no hi han Items a l'habitació");
-                    }
+                    algoritmeDeixar(hiHaItemJugador);
 
                     break;
             }
         } else if (jugador.getOnEstic() == rooms[1].getNom()) {
             System.out.println("Descripció: " + rooms[1].getDescripcio());
-            itemsRoom(rooms[1].getNom()); // Mostra els Items que hi han en l'habitació actual
-            itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+            hiHaItemRoom = itemsRoom(rooms[1].getNom()); // Mostra els Items que hi han en l'habitació actual
+            hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a l'ESQUERRA/DRETA/AVALL");
 
             verbMenu = menuVerbs();
@@ -282,11 +256,22 @@ public class Main {
                             jugador.setOnEstic(rooms[4].getNom());
                             break;
                     }
+                    break;
+                case "AGAFAR":
+
+                    algoritmeAgafar(hiHaItemRoom);
+
+                    break;
+                case "DEIXAR":
+
+                    algoritmeDeixar(hiHaItemJugador);
+
+                    break;
             }
         } else if (jugador.getOnEstic() == rooms[2].getNom()) {
             System.out.println("Descripció: " + rooms[2].getDescripcio());
-            itemsRoom(rooms[2].getNom()); // Mostra els Items que hi han en l'habitació actual
-            itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+            hiHaItemRoom = itemsRoom(rooms[2].getNom()); // Mostra els Items que hi han en l'habitació actual
+            hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a l'ESQUERRA/AVALL");
 
             verbMenu = menuVerbs();
@@ -306,11 +291,22 @@ public class Main {
                             jugador.setOnEstic(rooms[5].getNom());
                             break;
                     }
+                    break;
+                case "AGAFAR":
+
+                    algoritmeAgafar(hiHaItemRoom);
+
+                    break;
+                case "DEIXAR":
+
+                    algoritmeDeixar(hiHaItemJugador);
+
+                    break;
             }
         } else if (jugador.getOnEstic() == rooms[3].getNom()) {
             System.out.println("Descripció: " + rooms[3].getDescripcio());
-            itemsRoom(rooms[3].getNom()); // Mostra els Items que hi han en l'habitació actual
-            itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+            hiHaItemRoom = itemsRoom(rooms[3].getNom()); // Mostra els Items que hi han en l'habitació actual
+            hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a la DRETA/AVALL/AMUNT");
 
             verbMenu = menuVerbs();
@@ -333,11 +329,22 @@ public class Main {
                             jugador.setOnEstic(rooms[0].getNom());
                             break;
                     }
+                    break;
+                case "AGAFAR":
+
+                    algoritmeAgafar(hiHaItemRoom);
+
+                    break;
+                case "DEIXAR":
+
+                    algoritmeDeixar(hiHaItemJugador);
+
+                    break;
             }
         } else if (jugador.getOnEstic() == rooms[4].getNom()) {
             System.out.println("Descripció: " + rooms[4].getDescripcio());
-            itemsRoom(rooms[4].getNom()); // Mostra els Items que hi han en l'habitació actual
-            itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+            hiHaItemRoom = itemsRoom(rooms[4].getNom()); // Mostra els Items que hi han en l'habitació actual
+            hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a l'ESQUERRA/DRETA/AVALL/AMUNT");
 
             verbMenu = menuVerbs();
@@ -363,11 +370,22 @@ public class Main {
                             jugador.setOnEstic(rooms[1].getNom());
                             break;
                     }
+                    break;
+                case "AGAFAR":
+
+                    algoritmeAgafar(hiHaItemRoom);
+
+                    break;
+                case "DEIXAR":
+
+                    algoritmeDeixar(hiHaItemJugador);
+
+                    break;
             }
         } else if (jugador.getOnEstic() == rooms[5].getNom()) {
             System.out.println("Descripció: " + rooms[5].getDescripcio());
-            itemsRoom(rooms[5].getNom()); // Mostra els Items que hi han en l'habitació actual
-            itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+            hiHaItemRoom = itemsRoom(rooms[5].getNom()); // Mostra els Items que hi han en l'habitació actual
+            hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a l'ESQUERRA/AVALL/AMUNT");
 
             verbMenu = menuVerbs();
@@ -390,11 +408,22 @@ public class Main {
                             jugador.setOnEstic(rooms[2].getNom());
                             break;
                     }
+                    break;
+                case "AGAFAR":
+
+                    algoritmeAgafar(hiHaItemRoom);
+
+                    break;
+                case "DEIXAR":
+
+                    algoritmeDeixar(hiHaItemJugador);
+
+                    break;
             }
         } else if (jugador.getOnEstic() == rooms[6].getNom()) {
             System.out.println("Descripció: " + rooms[6].getDescripcio());
-            itemsRoom(rooms[6].getNom()); // Mostra els Items que hi han en l'habitació actual
-            itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+            hiHaItemRoom = itemsRoom(rooms[6].getNom()); // Mostra els Items que hi han en l'habitació actual
+            hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a la DRETA/AMUNT");
 
             verbMenu = menuVerbs();
@@ -414,11 +443,22 @@ public class Main {
                             jugador.setOnEstic(rooms[3].getNom());
                             break;
                     }
+                    break;
+                case "AGAFAR":
+
+                    algoritmeAgafar(hiHaItemRoom);
+
+                    break;
+                case "DEIXAR":
+
+                    algoritmeDeixar(hiHaItemJugador);
+
+                    break;
             }
         } else if (jugador.getOnEstic() == rooms[7].getNom()) {
             System.out.println("Descripció: " + rooms[7].getDescripcio());
-            itemsRoom(rooms[7].getNom()); // Mostra els Items que hi han en l'habitació actual
-            itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+            hiHaItemRoom = itemsRoom(rooms[7].getNom()); // Mostra els Items que hi han en l'habitació actual
+            hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a l'ESQUERRA/DRETA/AMUNT");
 
             verbMenu = menuVerbs();
@@ -441,11 +481,22 @@ public class Main {
                             jugador.setOnEstic(rooms[4].getNom());
                             break;
                     }
+                    break;
+                case "AGAFAR":
+
+                    algoritmeAgafar(hiHaItemRoom);
+
+                    break;
+                case "DEIXAR":
+
+                    algoritmeDeixar(hiHaItemJugador);
+
+                    break;
             }
         } else if (jugador.getOnEstic() == rooms[8].getNom()) {
             System.out.println("Descripció: " + rooms[8].getDescripcio());
-            itemsRoom(rooms[8].getNom()); // Mostra els Items que hi han en l'habitació actual
-            itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+            hiHaItemRoom = itemsRoom(rooms[8].getNom()); // Mostra els Items que hi han en l'habitació actual
+            hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a l'ESQUERRA/AMUNT");
 
             verbMenu = menuVerbs();
@@ -465,11 +516,22 @@ public class Main {
                             jugador.setOnEstic(rooms[5].getNom());
                             break;
                     }
+                    break;
+                case "AGAFAR":
+
+                    algoritmeAgafar(hiHaItemRoom);
+
+                    break;
+                case "DEIXAR":
+
+                    algoritmeDeixar(hiHaItemJugador);
+
+                    break;
             }
         } else if (jugador.getOnEstic() == rooms[9].getNom()) {
             System.out.println("Descripció: " + rooms[9].getDescripcio());
-            itemsRoom(rooms[9].getNom()); // Mostra els Items que hi han en l'habitació actual
-            itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+            hiHaItemRoom = itemsRoom(rooms[9].getNom()); // Mostra els Items que hi han en l'habitació actual
+            hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a les ESCALES");
 
             verbMenu = menuVerbs();
@@ -488,7 +550,96 @@ public class Main {
                             jugador.setOnEstic(rooms[0].getNom());
                             break;
                     }
+                    break;
+                case "AGAFAR":
+
+                    algoritmeAgafar(hiHaItemRoom);
+
+                    break;
+                case "DEIXAR":
+
+                    algoritmeDeixar(hiHaItemJugador);
+
+                    break;
             }
+        }
+    }
+
+    public static void accionsv2() {
+
+        int hiHaItemRoom;
+        int hiHaItemJugador;
+        String movJugadorMayus;
+        String itemADeixar;
+        String verbMenu;
+
+        for (int i = 0; i < capacitatRooms; i++) {
+            if(jugador.getOnEstic() == rooms[i].getNom()) {
+                System.out.println("Descripció: " + rooms[i].getDescripcio());
+                hiHaItemRoom = itemsRoom(rooms[i].getNom()); // Mostra els Items que hi han en l'habitació actual
+                hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
+
+                verbMenu = menuVerbs();
+
+                switch (verbMenu) {
+                    case "ANAR":
+
+                        System.out.println("On et vols moure?");
+
+                        movJugadorMayus = controladorChars();
+
+                        moureJugador(movJugadorMayus);
+
+                        break;
+                    case "AGAFAR":
+
+                        algoritmeAgafar(hiHaItemRoom);
+
+                        break;
+                    case "DEIXAR":
+
+                        algoritmeDeixar(hiHaItemJugador);
+
+                        break;
+                }
+            }
+        }
+    }
+
+    public static void moureJugador(String movJugadorMayus) {
+        switch (movJugadorMayus) {
+            case "EAST":
+               /* if(jugador.getOnEstic() == rooms[0].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                } else if(jugador.getOnEstic() == rooms[1].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                } else if(jugador.getOnEstic() == rooms[2].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                } else if(jugador.getOnEstic() == rooms[3].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                } else if(jugador.getOnEstic() == rooms[4].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                } else if(jugador.getOnEstic() == rooms[5].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                } else if(jugador.getOnEstic() == rooms[6].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                } else if(jugador.getOnEstic() == rooms[7].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                } else if(jugador.getOnEstic() == rooms[8].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                } else if(jugador.getOnEstic() == rooms[9].getNom()) {
+                    jugador.setOnEstic(rooms[1].getNom());
+                }*/
+                break;
+            case "SOUTH":
+                jugador.setOnEstic(rooms[7].getNom());
+                break;
+            case "WEST":
+                jugador.setOnEstic(rooms[3].getNom());
+                break;
+            case "NORTH":
+                jugador.setOnEstic(rooms[1].getNom());
+                break;
         }
     }
 
@@ -496,8 +647,6 @@ public class Main {
     public static String menuVerbs() {
         String verbMenu;
         System.out.println("Quina acció vols fer? (ANAR/DEIXAR/AGAFAR/USAR/PARLAR)");
-        verbMenu = teclat.next();
-        teclat.nextLine();
         verbMenu = controladorChars(); //controla que la instruccio introduida sigui la correcte, si no ho es, torna a preguntar
 
         return verbMenu;
@@ -548,5 +697,42 @@ public class Main {
         }
 
         return movJugadorMayus;
+    }
+
+    public static void algoritmeAgafar(int hiHaItemRoom) {
+        String itemAAgafar;
+
+        if (hiHaItemRoom > 0) { // controla si hi han items a l'habitacio
+            System.out.println("Quin Item de l'habitació vols agafar?");
+            itemAAgafar = teclat.next();
+            teclat.nextLine();
+            for (int i = 0; i < capacitatItems; i++) {
+                if (itemAAgafar == items[i].getNom() && items[i].getOnEstic() == rooms[0].getNom()) {
+                    items[i].setOnEstic(jugador.getNom());
+                    i = capacitatItems;
+                }
+            }
+        } else {
+            System.out.println("No pots fer aquesta acció perque no hi han Items a l'habitació");
+        }
+    }
+
+    public static void algoritmeDeixar(int hiHaItemJugador) {
+        String itemADeixar;
+
+        if (hiHaItemJugador > 0) {
+            System.out.println("Quin Item de l'habitació vols agafar?");
+            itemADeixar = teclat.next();
+            teclat.nextLine();
+            for (int i = 0; i < capacitatItems; i++) {
+                if (itemADeixar == items[i].getNom() && items[i].getOnEstic() == jugador.getNom()) {
+                    items[i].setOnEstic(rooms[0].getNom());
+                    i = capacitatItems;
+                }
+            }
+
+        } else {
+            System.out.println("No pots fer aquesta acció perque no tens Items L'INVENTARI");
+        }
     }
 }
