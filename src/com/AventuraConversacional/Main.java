@@ -28,15 +28,16 @@ public class Main {
         crearItems();
         crearNPCs();
 
-        jugador.setOnEstic(rooms[7].getNom());
-        while (movJugador != "EXIT") {
+        jugador.setOnEstic(rooms[7].getNom()); // iniciem al jugador a l'habitacio "entrada"
+        while (movJugador != "EXIT") { // si el jugador introdueix "EXIT" per teclat el joc s'acaba (aixo perque encara no esta programat la possibilitat de guanyar o perdre)
             jugadorOnEsta();
 
-            moure();
+            accions();
         }
         System.out.println("Gracies per jugar!");
     }
 
+    // creem la array i coloquem on estaran totes les habitacions, amb tota la info dels paramentres ja introduida
     public static void crearMapa() {
         rooms[0] = new Room();
             rooms[0].setNom("cuina");
@@ -130,6 +131,7 @@ public class Main {
 
     }
 
+    // creem l'array i coloquem els items dins d'ella amb tota la info dels items tmb.
     public static void  crearItems() {
         items[0] = new Item();
             items[0].setNom("Espassa");
@@ -158,6 +160,7 @@ public class Main {
             items[2].setOnEstic(rooms[5].getNom());
     }
 
+    // creem l'array dels NPCs i els coloquem dins d'aquesta + tota la info dels mateixos
     public static void crearNPCs() {
         NPCs[0] = new NPC();
             NPCs[0].setNom("Cuinera");
@@ -172,13 +175,15 @@ public class Main {
             NPCs[1].setDonar(false);
     }
 
+    // mostrar per pantalla en quina habitació es trova el jugador
     public static void jugadorOnEsta() {
 
         System.out.println("________________________________________________________________________________________________________");
         System.out.println("Estas situat a l'habitació: " + jugador.getOnEstic());
     }
 
-    public static void moure() {
+    // on es produeixen totes les accions que pot fer el jugador i les seves interactuacions amb Items i NPCs
+    public static void accions() {
 
         int hiHaItemRoom;
         int hiHaItemJugador;
@@ -194,14 +199,15 @@ public class Main {
             hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
             System.out.println("Et pots moure cap a la DRETA/AVALL/ESCALES");
 
-            verbMenu = menuVerbs();
+            verbMenu = menuVerbs(); // preguntem per l'accio que l'usuari desitja fer
 
             switch (verbMenu) {
                 case "ANAR":
                     System.out.println("On et vols moure?");
 
-                    movJugadorMayus = controladorChars();
+                    movJugadorMayus = controladorChars(); // controla que el caracter introduit no peti el programa i si ha introduit una paraula que no era li torna a preguntar fins que indiqui be l'instrucció
 
+                    // depenent de la instrucció entrada per l'usuari entrara a una habitacio o un altre
                     switch (movJugadorMayus) {
                         case "EAST":
                             jugador.setOnEstic(rooms[1].getNom());
@@ -486,16 +492,18 @@ public class Main {
         }
     }
 
+    // pregunta per l'accio
     public static String menuVerbs() {
         String verbMenu;
         System.out.println("Quina acció vols fer? (ANAR/DEIXAR/AGAFAR/USAR/PARLAR)");
         verbMenu = teclat.next();
         teclat.nextLine();
-        verbMenu = controladorChars();
+        verbMenu = controladorChars(); //controla que la instruccio introduida sigui la correcte, si no ho es, torna a preguntar
 
         return verbMenu;
     }
 
+    //llista per pantalla els items que hi ha en l'habitacio que el jugador esta situat
     public static int itemsRoom(String nomRoom) {
         int numItems = 0;
 
@@ -510,6 +518,7 @@ public class Main {
         return numItems;
     }
 
+    //llista per pantalla els items que te el jugador a l'inventari
     public static int itemsJugador() {
         int numItems = 0;
 
@@ -524,6 +533,7 @@ public class Main {
         return numItems;
     }
 
+    // controla els Strings introduits per l'usuari a traves d'una classe externa (PASSARMAYUS i CARACTERCORRECTE)
     public static String controladorChars() {
         boolean caracterIncorrecte = true;
 
