@@ -220,6 +220,12 @@ public class Main {
                         System.out.println("Quin Item de l'habitació vols agafar?");
                         itemAAgafar = teclat.next();
                         teclat.nextLine();
+                        for (int i = 0; i < capacitatItems; i++) {
+                            if (itemAAgafar == items[i].getNom() && items[i].getOnEstic() == rooms[0].getNom()) {
+                                items[i].setOnEstic(jugador.getNom());
+                                 i = capacitatItems;
+                            }
+                        }
                     } else {
                         System.out.println("No pots fer aquesta acció perque no hi han Items a l'habitació");
                     }
@@ -231,6 +237,13 @@ public class Main {
                         System.out.println("Quin Item de l'habitació vols agafar?");
                         itemADeixar = teclat.next();
                         teclat.nextLine();
+                        for (int i = 0; i < capacitatItems; i++) {
+                            if (itemADeixar == items[i].getNom() && items[i].getOnEstic() == jugador.getNom()) {
+                                items[i].setOnEstic(rooms[0].getNom());
+                                i = capacitatItems;
+                            }
+                        }
+
                     } else {
                         System.out.println("No pots fer aquesta acció perque no hi han Items a l'habitació");
                     }
