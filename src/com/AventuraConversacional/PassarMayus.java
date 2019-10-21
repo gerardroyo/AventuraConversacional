@@ -2,9 +2,9 @@ package com.AventuraConversacional;
 
 public class PassarMayus {
 
-    public char cadenaAMayus(char caracter) {
+    public String cadenaAMayus(String caracter) {
 
-        char caracterMayus = Character.toUpperCase(caracter);
+            String caracterMayus = caracter.toUpperCase();
 
         return caracterMayus;
     }

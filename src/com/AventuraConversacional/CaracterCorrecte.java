@@ -2,13 +2,14 @@ package com.AventuraConversacional;
 
 public class CaracterCorrecte {
 
-    public boolean controladorChar(char caracterChar) {
+    public boolean controladorChar(String caracterChar) {
         boolean entradaCorrecte = true;
 
-        if (caracterChar == 'W' || caracterChar == 'A' || caracterChar == 'S' || caracterChar == 'D' || caracterChar == 'E' || caracterChar == 'Q') {
+        if (caracterChar.equals("NORTH") || caracterChar.equals("WEST") || caracterChar.equals("SOUTH") || caracterChar.equals("EAST") || caracterChar.equals("ESCALES") || caracterChar.equals("EXIT")) {
             entradaCorrecte = false;
-        }
-        else {
+        } else if (caracterChar.equals("ANAR") || caracterChar.equals("DEIXAR") || caracterChar.equals("AGAFAR") || caracterChar.equals("USAR") || caracterChar.equals("PARLAR")) {
+            entradaCorrecte = false;
+        } else {
             System.out.println("No has escrit be la instrucció, torna-hi: ");
         }
         return entradaCorrecte;

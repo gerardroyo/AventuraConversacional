@@ -17,19 +17,19 @@ public class Main {
 
     private static Scanner teclat = new Scanner(System.in);
 
-    private static char movJugador;
+    private static String movJugador;
 
     public static void main(String[] args) {
 
         System.out.println("________________________________________________________________________________________________________");
-        System.out.println("Instruccions de moviment: AMUNT(W), ESQUERRA(A), AVALL(S), DRETA(D), ESCALES(E) | Per sortir escriu (Q))");
+        System.out.println("Instruccions de moviment: NORTH, WEST, SOUTH, EAST, ESCALES | Per sortir escriu EXIT)");
 
         crearMapa();
         crearItems();
         crearNPCs();
 
         jugador.setOnEstic(rooms[7].getNom());
-        while (movJugador != 'Q' && movJugador != 'q') {
+        while (movJugador != "EXIT") {
             jugadorOnEsta();
 
             moure();
@@ -182,7 +182,7 @@ public class Main {
 
         int hiHaItemRoom;
         int hiHaItemJugador;
-        char movJugadorMayus;
+        String movJugadorMayus;
         String itemAAgafar;
         String itemADeixar;
         String verbMenu;
@@ -203,13 +203,13 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'D':
+                        case "EAST":
                             jugador.setOnEstic(rooms[1].getNom());
                             break;
-                        case 'S':
+                        case "SOUTH":
                             jugador.setOnEstic(rooms[3].getNom());
                             break;
-                        case 'E':
+                        case "ESCALES":
                             jugador.setOnEstic(rooms[9].getNom());
                             break;
                     }
@@ -266,13 +266,13 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'A':
+                        case "WEST":
                             jugador.setOnEstic(rooms[0].getNom());
                             break;
-                        case 'D':
+                        case "EAST":
                             jugador.setOnEstic(rooms[2].getNom());
                             break;
-                        case 'S':
+                        case "SOUTH":
                             jugador.setOnEstic(rooms[4].getNom());
                             break;
                     }
@@ -293,10 +293,10 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'A':
+                        case "WEST":
                             jugador.setOnEstic(rooms[1].getNom());
                             break;
-                        case 'S':
+                        case "SOUTH":
                             jugador.setOnEstic(rooms[5].getNom());
                             break;
                     }
@@ -317,13 +317,13 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'D':
+                        case "EAST":
                             jugador.setOnEstic(rooms[4].getNom());
                             break;
-                        case 'S':
+                        case "SOUTH":
                             jugador.setOnEstic(rooms[6].getNom());
                             break;
-                        case 'W':
+                        case "NORTH":
                             jugador.setOnEstic(rooms[0].getNom());
                             break;
                     }
@@ -344,16 +344,16 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'D':
+                        case "EAST":
                             jugador.setOnEstic(rooms[5].getNom());
                             break;
-                        case 'S':
+                        case "SOUTH":
                             jugador.setOnEstic(rooms[7].getNom());
                             break;
-                        case 'A':
+                        case "WEST":
                             jugador.setOnEstic(rooms[3].getNom());
                             break;
-                        case 'W':
+                        case "NORTH":
                             jugador.setOnEstic(rooms[1].getNom());
                             break;
                     }
@@ -374,13 +374,13 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'S':
+                        case "SOUTH":
                             jugador.setOnEstic(rooms[8].getNom());
                             break;
-                        case 'A':
+                        case "WEST":
                             jugador.setOnEstic(rooms[4].getNom());
                             break;
-                        case 'W':
+                        case "NORTH":
                             jugador.setOnEstic(rooms[2].getNom());
                             break;
                     }
@@ -401,10 +401,10 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'D':
+                        case "EAST":
                             jugador.setOnEstic(rooms[7].getNom());
                             break;
-                        case 'W':
+                        case "NORTH":
                             jugador.setOnEstic(rooms[3].getNom());
                             break;
                     }
@@ -425,13 +425,13 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'D':
+                        case "EAST":
                             jugador.setOnEstic(rooms[8].getNom());
                             break;
-                        case 'A':
+                        case "WEST":
                             jugador.setOnEstic(rooms[6].getNom());
                             break;
-                        case 'W':
+                        case "NORTH":
                             jugador.setOnEstic(rooms[4].getNom());
                             break;
                     }
@@ -452,10 +452,10 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'A':
+                        case "WEST":
                             jugador.setOnEstic(rooms[7].getNom());
                             break;
-                        case 'W':
+                        case "NORTH":
                             jugador.setOnEstic(rooms[5].getNom());
                             break;
                     }
@@ -468,6 +468,8 @@ public class Main {
 
             verbMenu = menuVerbs();
 
+            movJugadorMayus = controladorChars();
+
             switch (verbMenu) {
                 case "ANAR":
 
@@ -476,7 +478,7 @@ public class Main {
                     movJugadorMayus = controladorChars();
 
                     switch (movJugadorMayus) {
-                        case 'E':
+                        case "ESCALES":
                             jugador.setOnEstic(rooms[0].getNom());
                             break;
                     }
@@ -486,9 +488,10 @@ public class Main {
 
     public static String menuVerbs() {
         String verbMenu;
-        System.out.println("Quina acció vols fer? (ANAR/DEIXAR/AGAFAR/USAR/PARLAR/PUJAR)");
+        System.out.println("Quina acció vols fer? (ANAR/DEIXAR/AGAFAR/USAR/PARLAR)");
         verbMenu = teclat.next();
         teclat.nextLine();
+        verbMenu = controladorChars();
 
         return verbMenu;
     }
@@ -521,13 +524,15 @@ public class Main {
         return numItems;
     }
 
-    public static char controladorChars() {
+    public static String controladorChars() {
         boolean caracterIncorrecte = true;
 
-        char movJugadorMayus = ' ';
+        String movJugadorMayus = "";
 
         while (caracterIncorrecte == true) {
-            movJugador = teclat.next().charAt(0);
+            movJugador = teclat.next();
+            teclat.nextLine();
+
             movJugadorMayus = toMayus.cadenaAMayus(movJugador);
             caracterIncorrecte = cc.controladorChar(movJugadorMayus);
         }
