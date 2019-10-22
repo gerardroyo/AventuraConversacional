@@ -29,9 +29,6 @@ public class Main {
         jugador.setOnEstic(rooms[7].getNom()); // iniciem al jugador a l'habitacio "entrada"
         while (movJugador != "EXIT") { // si el jugador introdueix "EXIT" per teclat el joc s'acaba (aixo perque encara no esta programat la possibilitat de guanyar o perdre)
 
-            System.out.println("________________________________________________________________________________________________________");
-            System.out.println("Instruccions de moviment: NORTH, WEST, SOUTH, EAST, ESCALES | Per sortir escriu EXIT)");
-
             jugadorOnEsta();
 
             accionsv2();
@@ -165,14 +162,14 @@ public class Main {
     // creem l'array dels NPCs i els coloquem dins d'aquesta + tota la info dels mateixos
     public static void crearNPCs() {
         NPCs[0] = new NPC();
-            NPCs[0].setNom("Cuinera");
+            NPCs[0].setNom("CUINERA");
             NPCs[0].setOnEstic(rooms[0].getNom());
             NPCs[0].setViu(true);
             NPCs[0].setDonar(false);
             NPCs[0].setParlar("WASAAAAAAAAAAAAAA, sóc la cuinera, dame tol money si kere la info, otaku culiao");
 
         NPCs[1] = new NPC();
-            NPCs[1].setNom("JordiJor");
+            NPCs[1].setNom("JORDIJOR");
             NPCs[1].setOnEstic(rooms[9].getNom());
             NPCs[1].setViu(true);
             NPCs[1].setDonar(false);
@@ -215,7 +212,7 @@ public class Main {
                 switch (verbMenu) {
                     case "ANAR":
 
-                        System.out.println("On et vols moure?");
+                        System.out.println("On et vols moure? NORTH, WEST, SOUTH, EAST, ESCALES | Per sortir del joc escriu EXIT)");
 
                         movJugadorMayus = controladorChars();
 
@@ -401,12 +398,14 @@ public class Main {
             System.out.println("Quin Item de l'habitació vols agafar?");
             itemAAgafar = teclat.next();
             teclat.nextLine();
-            for (int j = 0; j < capacitatRooms; j++) {
-                for (int i = 0; i < capacitatItems; i++) {
-                    if (itemAAgafar == items[i].getNom() && items[i].getOnEstic() == rooms[j].getNom()) {
-                        System.out.println("He entrat a l'if");
+            for (int i = 0; i < capacitatItems; i++) {
+                for (int j = 0; j < capacitatRooms; j++) {
+                    if (itemAAgafar.equals(items[i].getNom()) && items[i].getOnEstic().equals(rooms[j].getNom())) {
                         items[i].setOnEstic(jugador.getNom());
                         i = capacitatItems;
+                        j = capacitatRooms;
+                        System.out.println("________________________________________________________________________________________________________");
+                        System.out.println("He agafat l'Item i l'he guardat a l'inventari");
                     }
                 }
             }
@@ -419,13 +418,15 @@ public class Main {
         String itemADeixar;
 
         if (hiHaItemJugador > 0) {
-            System.out.println("Quin Item de l'habitació vols agafar?");
+            System.out.println("Quin Item de l'Inventari vols deixar en aquesta habitació");
             itemADeixar = teclat.next();
             teclat.nextLine();
             for (int i = 0; i < capacitatItems; i++) {
-                if (itemADeixar == items[i].getNom() && items[i].getOnEstic() == jugador.getNom()) {
-                    items[i].setOnEstic(rooms[0].getNom());
+                if (itemADeixar.equals(items[i].getNom()) && items[i].getOnEstic().equals(jugador.getNom())) {
+                    items[i].setOnEstic(jugador.getOnEstic());
                     i = capacitatItems;
+                    System.out.println("________________________________________________________________________________________________________");
+                    System.out.println("He deixat l'item de l'inventari en aquesta habitació");
                 }
             }
 
@@ -441,8 +442,8 @@ public class Main {
             System.out.println("Amb quin NPC vols Interactuar?");
             NPCAParlar = teclat.next();
             teclat.nextLine();
-            for (int j = 0; j < capacitatRooms; j++) {
-                for (int i = 0; i < capacitatNPCs; i++) {
+            for (int i = 0; i < capacitatNPCs; i++) {
+                for (int j = 0; j < capacitatRooms; j++) {
                     if (NPCAParlar == NPCs[i].getNom() && NPCs[i].getOnEstic() == rooms[j].getNom()) {
                         System.out.println(NPCs[i].getParlar());
 
