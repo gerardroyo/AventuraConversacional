@@ -61,6 +61,8 @@ public class Room {
         this.portaOest = portaOest;
     }
 
+    public boolean getEscalaAqui() { return escalaAqui; }
+
     public void setEscalaAqui(boolean escalaAqui) {
         this.escalaAqui = escalaAqui;
     }
