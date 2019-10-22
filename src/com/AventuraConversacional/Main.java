@@ -8,6 +8,7 @@ public class Main {
     private static int capacitatItems = 4;
     private static int capacitatNPCs = 2;
     private static boolean soborn = false;
+    private static boolean win = false;
 
     private static Room rooms[]= new Room[capacitatRooms];
     private static Item items[] = new Item[capacitatItems];
@@ -27,7 +28,7 @@ public class Main {
         crearNPCs();
 
         jugador.setOnEstic(rooms[7].getNom()); // iniciem al jugador a l'habitacio "entrada"
-        while (movJugador != "EXIT") { // si el jugador introdueix "EXIT" per teclat el joc s'acaba (aixo perque encara no esta programat la possibilitat de guanyar o perdre)
+        while (movJugador != "EXIT" || win == true) { // si el jugador introdueix "EXIT" per teclat el joc s'acaba (aixo perque encara no esta programat la possibilitat de guanyar o perdre)
 
             jugadorOnEsta();
 
@@ -126,7 +127,7 @@ public class Main {
             rooms[9].setPortaSud(false);
             rooms[9].setPortaEst(false);
             rooms[9].setPortaOest(false);
-            rooms[9].setEscalaAqui(true);
+            rooms[9].setEscalaAqui(false);
 
     }
 
@@ -153,10 +154,10 @@ public class Main {
             items[2].setOnEstic(rooms[1].getNom());
 
         items[3] = new Item();
-            items[2].setNom("BOSA AMB DINERS");
-            items[2].setUsat(false);
-            items[2].setDescripcio("Una bossa de dines sempre ens pot ser d’utilitat per aconseguir coses...");
-            items[2].setOnEstic(rooms[5].getNom());
+            items[3].setNom("BOSADINERS");
+            items[3].setUsat(false);
+            items[3].setDescripcio("Una bossa de dines sempre ens pot ser d’utilitat per aconseguir coses...");
+            items[3].setOnEstic(rooms[5].getNom());
     }
 
     // creem l'array dels NPCs i els coloquem dins d'aquesta + tota la info dels mateixos
@@ -338,10 +339,11 @@ public class Main {
 
         for (int i = 0; i < items.length; i++) {
             if (items[i].getOnEstic() == nomRoom) {
-                System.out.println("| " + items[i].getNom() + " | ");
+                System.out.print("| " + items[i].getNom() + " | ");
                 numItems++;
             }
         }
+        System.out.println();
         return numItems;
     }
 
@@ -353,10 +355,11 @@ public class Main {
 
         for (int i = 0; i < items.length; i++) {
             if (items[i].getOnEstic() == jugador.getNom()) {
-                System.out.println("| " + items[i].getNom() + " | ");
+                System.out.print("| " + items[i].getNom() + " | ");
                 numItems++;
             }
         }
+        System.out.println();
         return numItems;
     }
 
@@ -367,10 +370,11 @@ public class Main {
 
         for (int i = 0; i < NPCs.length; i++) {
             if (NPCs[i].getOnEstic() == nomRoom) {
-                System.out.println("| " + NPCs[i].getNom() + " | ");
+                System.out.print("| " + NPCs[i].getNom() + " | ");
                 numNPCs++;
             }
         }
+        System.out.println();
         return numNPCs;
     }
 
@@ -444,16 +448,29 @@ public class Main {
             teclat.nextLine();
             for (int i = 0; i < capacitatNPCs; i++) {
                 for (int j = 0; j < capacitatRooms; j++) {
-                    if (NPCAParlar == NPCs[i].getNom() && NPCs[i].getOnEstic() == rooms[j].getNom()) {
+                    if (NPCAParlar.equals(NPCs[i].getNom()) && NPCs[i].getOnEstic().equals(rooms[j].getNom())) {
+                        System.out.println("________________________________________________________________________________________________________");
                         System.out.println(NPCs[i].getParlar());
 
-                        if (items[3].getOnEstic() == jugador.getNom()) {
+                        if (items[3].getOnEstic().equals(jugador.getNom())) {
                             items[3].setOnEstic(NPCs[i].getNom());
+                            System.out.println("________________________________________________________________________________________________________");
                             System.out.println("Li has donat la bosa de diners a la cuinera, a canvi de la informacio d'on esta situada l'escala per pujar al 2n pis.");
                             soborn = true;
                         }
 
-                        i = capacitatItems;
+                        i = capacitatNPCs;
+                        j = capacitatRooms;
+                    } else if ((NPCAParlar.equals(NPCs[i].getNom()) && NPCs[i].getOnEstic().equals(rooms[j].getNom()))) {
+                        System.out.println("________________________________________________________________________________________________________");
+                        System.out.println(NPCs[i].getParlar());
+
+                        if (items[0].getOnEstic().equals(jugador.getNom())) {
+                            items[0].setOnEstic(NPCs[i].getNom());
+                            System.out.println("________________________________________________________________________________________________________");
+                            System.out.println("Has usat l'espasa contra en JordiJor, HAS GUAÑAT!!!!");
+                            win = true;
+                        }
                     }
                 }
             }
