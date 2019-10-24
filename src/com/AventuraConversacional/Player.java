@@ -3,7 +3,6 @@ package com.AventuraConversacional;
 public class Player {
     private String nom = "CarloBon";
     private String onEstic;
-    private boolean viu = true;
     private char moviment = ' ';
 
     public Player() {
@@ -23,14 +22,6 @@ public class Player {
 
     public void setOnEstic(String onEstic) {
         this.onEstic = onEstic;
-    }
-
-    public boolean isViu() {
-        return viu;
-    }
-
-    public void setViu(boolean viu) {
-        this.viu = viu;
     }
 
     public char getMoviment() {

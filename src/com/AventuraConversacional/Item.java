@@ -6,6 +6,7 @@ public class Item {
     private boolean usat = false;
     private String descripcio = "";
     private String onEstic = "";
+    private boolean poderAgafar;
 
     public Item() {
     }
@@ -25,4 +26,8 @@ public class Item {
     public String getOnEstic() { return onEstic; }
 
     public void setOnEstic(String onEstic) { this.onEstic = onEstic; }
+
+    public boolean getPoderAgafar() { return poderAgafar; }
+
+    public void setPoderAgafar(boolean poderAgafar) { this.poderAgafar = poderAgafar; }
 }

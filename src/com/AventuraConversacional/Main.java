@@ -1,5 +1,6 @@
 package com.AventuraConversacional;
-
+// By Gerard Royo i Plà
+// Twitter: @RoshsKipo
 import java.util.Scanner;
 
 public class Main {
@@ -20,19 +21,23 @@ public class Main {
     private static Scanner teclat = new Scanner(System.in);
 
     private static String movJugador;
+    private static String again = "SI";
 
     public static void main(String[] args) {
+        while (again.equals("SI")) {
+            crearMapa();
+            crearItems();
+            crearNPCs();
 
-        crearMapa();
-        crearItems();
-        crearNPCs();
+            jugador.setOnEstic(rooms[7].getNom()); // iniciem al jugador a l'habitacio "entrada"
+            while (movJugador != "EXIT" && win == false) { // si el jugador introdueix "EXIT" per teclat el joc s'acaba (aixo perque encara no esta programat la possibilitat de guanyar o perdre)
 
-        jugador.setOnEstic(rooms[7].getNom()); // iniciem al jugador a l'habitacio "entrada"
-        while (movJugador != "EXIT" || win == true) { // si el jugador introdueix "EXIT" per teclat el joc s'acaba (aixo perque encara no esta programat la possibilitat de guanyar o perdre)
+                jugadorOnEsta();
 
-            jugadorOnEsta();
-
-            accionsv2();
+                accionsv2();
+            }
+            System.out.println("Vols jugar un altre cop? (SI/NO)");
+            again = controladorTeclat();
         }
         System.out.println("Gracies per jugar!");
     }
@@ -139,6 +144,7 @@ public class Main {
             items[0].setDescripcio("Espassa màgica amb la que ens podrem defensar de possibles enemics i inclús\n" +
                     "poder-los atacar en els moments en els que calgui.");
             items[0].setOnEstic(rooms[2].getNom());
+            items[0].setPoderAgafar(true);
 
         items[1] = new Item();
             items[1].setNom("CLAU");
@@ -146,18 +152,21 @@ public class Main {
             items[1].setDescripcio("La clau ens permetrà obrir certes portes del Palau. El problema es que sempre la\n" +
                     "trobarem a dalt d’algun moble i no hi arribarem tot sols.");
             items[1].setOnEstic(rooms[3].getNom());
+            items[1].setPoderAgafar(false);
 
         items[2] = new Item();
-            items[2].setNom("ESCALA DE MA");
+            items[2].setNom("ESCALAMA");
             items[2].setUsat(false);
             items[2].setDescripcio("doncs això.... una escala que ens permetrà accedir a objectes que estiguin elevats.");
             items[2].setOnEstic(rooms[1].getNom());
+            items[2].setPoderAgafar(true);
 
         items[3] = new Item();
             items[3].setNom("BOSADINERS");
             items[3].setUsat(false);
             items[3].setDescripcio("Una bossa de dines sempre ens pot ser d’utilitat per aconseguir coses...");
             items[3].setOnEstic(rooms[5].getNom());
+            items[3].setPoderAgafar(true);
     }
 
     // creem l'array dels NPCs i els coloquem dins d'aquesta + tota la info dels mateixos
@@ -165,16 +174,14 @@ public class Main {
         NPCs[0] = new NPC();
             NPCs[0].setNom("CUINERA");
             NPCs[0].setOnEstic(rooms[0].getNom());
-            NPCs[0].setViu(true);
             NPCs[0].setDonar(false);
-            NPCs[0].setParlar("WASAAAAAAAAAAAAAA, sóc la cuinera, dame tol money si kere la info, otaku culiao");
+            NPCs[0].setParlar("Cuinera: WASAAAAAAAAAAAAAA, sóc la cuinera, dame tol money si kere la info, otaku culiao");
 
         NPCs[1] = new NPC();
             NPCs[1].setNom("JORDIJOR");
             NPCs[1].setOnEstic(rooms[9].getNom());
-            NPCs[1].setViu(true);
             NPCs[1].setDonar(false);
-            NPCs[1].setParlar("zzZZzZzzZzzZz... titis... zzZZzZZZzZzZZ...");
+            NPCs[1].setParlar("JordiJor: zzZZzZzzZzzZz... titis... zzZZzZZZzZzZZ...");
     }
 
     // mostrar per pantalla en quina habitació es trova el jugador
@@ -203,7 +210,7 @@ public class Main {
                 if (soborn == true) {
                     for (int j = 0; j < capacitatRooms; j++) {
                         if (rooms[j].getEscalaAqui() == true) {
-                            System.out.println("L'escala per pujar al segon pis esta a l'habitacio: " + rooms[j].getNom());
+                            System.out.println("L'escala per pujar al segon pis esta a l'habitació: " + rooms[j].getNom());
                         }
                     }
                 }
@@ -215,7 +222,7 @@ public class Main {
 
                         System.out.println("On et vols moure? NORTH, WEST, SOUTH, EAST, ESCALES | Per sortir del joc escriu EXIT)");
 
-                        movJugadorMayus = controladorChars();
+                        movJugadorMayus = controladorTeclat();
 
                         moureJugador(movJugadorMayus);
 
@@ -228,6 +235,10 @@ public class Main {
                     case "DEIXAR":
 
                         algoritmeDeixar(hiHaItemJugador);
+
+                        break;
+                    case "USAR":
+                        algoritmeUsar(hiHaItemJugador);
 
                         break;
                     case "INTERACTUAR":
@@ -311,8 +322,16 @@ public class Main {
                 }
                 break;
             case "ESCALES":
-                if(jugador.getOnEstic() == rooms[0].getNom()) {
-                    jugador.setOnEstic(rooms[9].getNom());
+                if(jugador.getOnEstic().equals(rooms[0].getNom())) {
+                    if (soborn == true) {
+                        if (items[1].getOnEstic().equals(jugador.getNom())) {
+                            jugador.setOnEstic(rooms[9].getNom());
+                        } else {
+                            System.out.println("No tens la CLAU per accedir a aquesta habitació");
+                        }
+                    } else {
+                        System.out.println("No pots anar cap aquesta direcció.");
+                    }
                 } else if(jugador.getOnEstic() == rooms[9].getNom()) {
                     jugador.setOnEstic(rooms[0].getNom());
                 } else {
@@ -326,7 +345,7 @@ public class Main {
     public static String menuVerbs() {
         String verbMenu;
         System.out.println("Quina acció vols fer? (ANAR/DEIXAR/AGAFAR/USAR/INTERACTUAR)");
-        verbMenu = controladorChars(); //controla que la instruccio introduida sigui la correcte, si no ho es, torna a preguntar
+        verbMenu = controladorTeclat(); //controla que la instruccio introduida sigui la correcte, si no ho es, torna a preguntar
 
         return verbMenu;
     }
@@ -379,7 +398,7 @@ public class Main {
     }
 
     // controla els Strings introduits per l'usuari a traves d'una classe externa (PASSARMAYUS i CARACTERCORRECTE)
-    public static String controladorChars() {
+    public static String controladorTeclat() {
         boolean caracterIncorrecte = true;
 
         String movJugadorMayus = "";
@@ -389,7 +408,7 @@ public class Main {
             teclat.nextLine();
 
             movJugadorMayus = toMayus.cadenaAMayus(movJugador);
-            caracterIncorrecte = cc.controladorChar(movJugadorMayus);
+            caracterIncorrecte = cc.controladorTeclat(movJugadorMayus);
         }
 
         return movJugadorMayus;
@@ -400,21 +419,24 @@ public class Main {
 
         if (hiHaItemRoom > 0) { // controla si hi han items a l'habitacio
             System.out.println("Quin Item de l'habitació vols agafar?");
-            itemAAgafar = teclat.next();
-            teclat.nextLine();
+            itemAAgafar = controladorTeclat();
             for (int i = 0; i < capacitatItems; i++) {
                 for (int j = 0; j < capacitatRooms; j++) {
                     if (itemAAgafar.equals(items[i].getNom()) && items[i].getOnEstic().equals(rooms[j].getNom())) {
-                        items[i].setOnEstic(jugador.getNom());
-                        i = capacitatItems;
-                        j = capacitatRooms;
-                        System.out.println("________________________________________________________________________________________________________");
-                        System.out.println("He agafat l'Item i l'he guardat a l'inventari");
+                        if (items[i].getPoderAgafar() == true) {
+                            items[i].setOnEstic(jugador.getNom());
+                            i = capacitatItems;
+                            j = capacitatRooms;
+                            System.out.println("________________________________________________________________________________________________________");
+                            System.out.println("He agafat l'Item i l'he guardat a l'inventari");
+                        } else {
+                            System.out.println("Per agafar aquest Item necessites Usar una escala de má");
+                        }
                     }
                 }
             }
         } else {
-            System.out.println("No pots fer aquesta acció perque no hi han Items a l'habitació");
+            System.out.println("No pots fer aquesta acció perque no hi han Items a l'habitació o no hi arribes (necessites l'escala de má)");
         }
     }
 
@@ -423,8 +445,7 @@ public class Main {
 
         if (hiHaItemJugador > 0) {
             System.out.println("Quin Item de l'Inventari vols deixar en aquesta habitació");
-            itemADeixar = teclat.next();
-            teclat.nextLine();
+            itemADeixar = controladorTeclat();
             for (int i = 0; i < capacitatItems; i++) {
                 if (itemADeixar.equals(items[i].getNom()) && items[i].getOnEstic().equals(jugador.getNom())) {
                     items[i].setOnEstic(jugador.getOnEstic());
@@ -439,13 +460,44 @@ public class Main {
         }
     }
 
+    public static void algoritmeUsar(int hiHaItemJugador) {
+        String itemAUsar;
+
+        if (hiHaItemJugador > 0) {
+            System.out.println("Quin Item de l'Inventari vols usar?");
+            itemAUsar = controladorTeclat();
+            for (int i = 0; i < capacitatItems; i++) {
+                if (itemAUsar.equals(items[i].getNom()) && items[i].getOnEstic().equals(jugador.getNom())) {
+                    if (jugador.getOnEstic().equals(items[1].getOnEstic()) && itemAUsar.equals("ESCALAMA")) {
+                        items[1].setPoderAgafar(true);
+                        System.out.println("________________________________________________________________________________________________________");
+                        System.out.println("He colocat l'escala de má.");
+                        i = capacitatItems;
+                    } else if (jugador.getOnEstic().equals(NPCs[1].getOnEstic()) && itemAUsar.equals("ESPASA")) {
+                        System.out.println("________________________________________________________________________________________________________");
+                        System.out.println("T'apropes sigilosament...");
+                        System.out.println(NPCs[1].getParlar());
+                        System.out.println("Usas l'espasa contra en JordiJor i el mates");
+                        System.out.println("VICTORY, WINNER WINNER, CHICKEN DINNER");
+                        i = capacitatItems;
+                        win = true;
+                    } else {
+                        System.out.println("No pots usar aquest Item aquí");
+                    }
+                }
+            }
+
+        } else {
+            System.out.println("No pots fer aquesta acció perque no tens Items L'INVENTARI");
+        }
+    }
+
     public static void algoritmeInteractuarNPC(int hiHaNPCsRoom) {
         String NPCAParlar;
 
         if (hiHaNPCsRoom > 0) { // controla si hi han items a l'habitacio
             System.out.println("Amb quin NPC vols Interactuar?");
-            NPCAParlar = teclat.next();
-            teclat.nextLine();
+            NPCAParlar = controladorTeclat();
             for (int i = 0; i < capacitatNPCs; i++) {
                 for (int j = 0; j < capacitatRooms; j++) {
                     if (NPCAParlar.equals(NPCs[i].getNom()) && NPCs[i].getOnEstic().equals(rooms[j].getNom())) {
@@ -461,22 +513,13 @@ public class Main {
 
                         i = capacitatNPCs;
                         j = capacitatRooms;
-                    } else if ((NPCAParlar.equals(NPCs[i].getNom()) && NPCs[i].getOnEstic().equals(rooms[j].getNom()))) {
-                        System.out.println("________________________________________________________________________________________________________");
-                        System.out.println(NPCs[i].getParlar());
-
-                        if (items[0].getOnEstic().equals(jugador.getNom())) {
-                            items[0].setOnEstic(NPCs[i].getNom());
-                            System.out.println("________________________________________________________________________________________________________");
-                            System.out.println("Has usat l'espasa contra en JordiJor, HAS GUAÑAT!!!!");
-                            win = true;
-                        }
                     }
                 }
             }
-        } else {
+        } else{
             System.out.println("No pots fer aquesta acció perque no hi han ningun NPC a l'habitació");
         }
     }
+
 
 }
