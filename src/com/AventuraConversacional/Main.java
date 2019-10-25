@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Main {
 
     private static int capacitatRooms = 10;
-    private static int capacitatItems = 4;
+    private static int capacitatItems = 6;
     private static int capacitatNPCs = 2;
     private static int properaLliureItems = 0;
     private static int properaLliureRooms = 0;
@@ -36,10 +36,25 @@ public class Main {
             crearItems(); // creació dels items
             crearNPCs(); // creació dels NPCs
 
+            System.out.println();
+            System.out.println("Sou CarloBon, comandant de les legions catalanes destinades a conquerir el món. Esteu sota\n" +
+                    "el mandat de l’emperador RafaFer conegut arreu per la seva bondat i la seva estimació cap el\n" +
+                    "poble. CarloBon és un home íntegre per a qui l’honor i la lleialtat són valors inqüestionables.\n" +
+                    "L’emperador RafaFer te un hereu, en JordaJor que espera amb anhel algun dia ser el nou\n" +
+                    "emperador Català. L’emperador RafaFer està malalt i vol deixar l’imperi a en CarloBon ja que\n" +
+                    "serà el millor pel poble però.... En JordiJor s’assabenta de les seves intencions i assassina a\n" +
+                    "en RafaFer quedant ell com a únic hereu de l’imperi. Tot seguit demana a les seves hostes\n" +
+                    "eliminar sigil·losament a en CarloBon. Se t’emporten en mig d’un bosc i et malfereixen deixantte al \n +" +
+                    "llinda de la mort. Mentre l’emperador JordiJor entra a la capital de l’imperi Català gloriós i\n" +
+                    "triomfal... comença la seva tirania!.\n" +
+                    "Han passat uns mesos i ja estàs plenament recuperat de les ferides ocasionades i el teu cor\n" +
+                    "demana venjança. Et dirigeixes a la capital amb la idea de fer justícia i aconseguir matar a\n" +
+                    "l’emperador per explicar al poble tota la veritat i quin era el desig del malaurat RafaFer.\n" +
+                    "Et davant del seu Palau, només portes una cuirassa i entres sigil·losament per la finestra d'una de les \n" +
+                    "habitacions...");
+
             jugador.setOnEstic(rooms[randomitzarSimple()].getNom()); // iniciem al jugador a l'habitacio "entrada"
             while (movJugador != "EXIT" && win == false) { // si el jugador introdueix "EXIT" per teclat o mata a en JordiJor el joc s'acaba
-
-                jugadorOnEsta(); // mostra per pantalla en quina habitació esta el jugador
 
                 accions();
             }
@@ -177,13 +192,27 @@ public class Main {
             items[3].setDescripcio("Una bossa de dines sempre ens pot ser d’utilitat per aconseguir coses...");
             items[3].setOnEstic(rooms[randomitzarItems()].getNom());
             items[3].setPoderAgafar(true);
+
+        items[4] = new Item();
+            items[4].setNom("NOTA1");
+            items[4].setUsat(false);
+            items[4].setDescripcio("PISTA: Per agafar la clau necessitaràs usar una ESCALA DE MA, la trobaràs en alguna d'aquestes habitacions.");
+            items[4].setOnEstic(rooms[randomitzarItems()].getNom());
+            items[4].setPoderAgafar(true);
+
+        items[5] = new Item();
+            items[5].setNom("NOTA2");
+            items[5].setUsat(false);
+            items[5].setDescripcio("PISTA: Per saber on esta l'escala per pujar al 2n pis, necessites subornar a la cuinera entregant-li una bossa de diners... ai lo dejo...");
+            items[5].setOnEstic(rooms[randomitzarItems()].getNom());
+            items[5].setPoderAgafar(true);
     }
 
     // creem l'array dels NPCs i els coloquem dins d'aquesta + tota la info dels mateixos
     public static void crearNPCs() {
         NPCs[0] = new NPC();
             NPCs[0].setNom("CUINERA");
-            NPCs[0].setOnEstic(rooms[0].getNom());
+            NPCs[0].setOnEstic("cuina");
             NPCs[0].setDonar(false);
             NPCs[0].setParlar("Cuinera: WASAAAAAAAAAAAAAA, sóc la cuinera, dame tol money si kere la info, otaku culiao");
 
@@ -195,11 +224,7 @@ public class Main {
     }
 
     // mostrar per pantalla en quina habitació es troba el jugador
-    public static void jugadorOnEsta() {
 
-        System.out.println("________________________________________________________________________________________________________");
-        System.out.println("Estas situat a l'habitació: " + jugador.getOnEstic());
-    }
 
     // on es produeixen totes les accions que pot fer el jugador i les seves interactuacions amb Items i NPCs
     public static void accions() {
@@ -213,6 +238,10 @@ public class Main {
 
         for (int i = 0; i < capacitatRooms; i++) { // recorre l'array rooms
             if(jugador.getOnEstic() == rooms[i].getNom()) {
+
+                System.out.println("________________________________________________________________________________________________________");
+                System.out.println("Estas situat a l'habitació: " + jugador.getOnEstic());
+
                 System.out.println("Descripció: " + rooms[i].getDescripcio()); // mostrem per pantalla la descripció de l'habitacio on esta situat el jugador
                 hiHaItemRoom = itemsRoom(rooms[i].getNom()); // Mostra els Items que hi han en l'habitació actual
                 hiHaItemJugador = itemsJugador(); // Mostra els Items que te el jugador a l'inventari
@@ -249,6 +278,7 @@ public class Main {
 
                         break;
                     case "USAR":
+
                         algoritmeUsar(hiHaItemJugador); // si l'usuari decideix usar un Item
 
                         break;
@@ -257,6 +287,13 @@ public class Main {
                         algoritmeInteractuarNPC(hiHaNPCsRoom); // si l'usuari decideix Interactuar/Parlar/intercanviar amb un NPCs (excepte en JordiJor)
 
                         break;
+                    case "LLEGIR":
+
+                        algoritmeLlegir(hiHaItemJugador);
+
+                        break;
+                    default:
+                        System.out.println("Aquesta instrucció no va aquí!!!!!!!");
                 }
             }
         }
@@ -277,8 +314,10 @@ public class Main {
                 } else if(jugador.getOnEstic() == rooms[6].getNom()) {
                     jugador.setOnEstic(rooms[7].getNom());
                 } else if(jugador.getOnEstic() == rooms[7].getNom()) {
+                   System.out.println("________________________________________________________________________________________________________");
                    System.out.println("No pots anar cap aquesta direcció.");
                 } else {
+                   System.out.println("________________________________________________________________________________________________________");
                    System.out.println("No pots anar cap aquesta direcció.");
                }
                 break;
@@ -296,6 +335,7 @@ public class Main {
                 } else if(jugador.getOnEstic() == rooms[5].getNom()) {
                     jugador.setOnEstic(rooms[8].getNom());
                 } else {
+                    System.out.println("________________________________________________________________________________________________________");
                     System.out.println("No pots anar cap aquesta direcció.");
                 }
                 break;
@@ -309,10 +349,12 @@ public class Main {
                 } else if(jugador.getOnEstic() == rooms[5].getNom()) {
                     jugador.setOnEstic(rooms[4].getNom());
                 } else if(jugador.getOnEstic() == rooms[7].getNom()) {
+                    System.out.println("________________________________________________________________________________________________________");
                     System.out.println("No pots anar cap aquesta direcció.");
                 } else if(jugador.getOnEstic() == rooms[8].getNom()) {
                     jugador.setOnEstic(rooms[7].getNom());
                 } else {
+                    System.out.println("________________________________________________________________________________________________________");
                     System.out.println("No pots anar cap aquesta direcció.");
                 }
                 break;
@@ -320,6 +362,7 @@ public class Main {
                 if(jugador.getOnEstic() == rooms[3].getNom()) {
                     jugador.setOnEstic(rooms[0].getNom());
                 } else if(jugador.getOnEstic() == rooms[4].getNom()) {
+                    System.out.println("________________________________________________________________________________________________________");
                     System.out.println("No pots anar cap aquesta direcció.");
                 } else if(jugador.getOnEstic() == rooms[5].getNom()) {
                     jugador.setOnEstic(rooms[2].getNom());
@@ -330,6 +373,7 @@ public class Main {
                 } else if(jugador.getOnEstic() == rooms[8].getNom()) {
                     jugador.setOnEstic(rooms[5].getNom());
                 } else {
+                    System.out.println("________________________________________________________________________________________________________");
                     System.out.println("No pots anar cap aquesta direcció.");
                 }
                 break;
@@ -339,24 +383,29 @@ public class Main {
                         if (items[1].getOnEstic().equals(jugador.getNom())) { // controlem que el jugador tingui l'Item clau a l'inventari per poder accedir al 2n pis.
                             jugador.setOnEstic(rooms[9].getNom());
                         } else {
+                            System.out.println("________________________________________________________________________________________________________");
                             System.out.println("No tens la CLAU per accedir a aquesta habitació");
                         }
                     } else {
+                        System.out.println("________________________________________________________________________________________________________");
                         System.out.println("No pots anar cap aquesta direcció.");
                     }
                 } else if(jugador.getOnEstic() == rooms[9].getNom()) {
                     jugador.setOnEstic(rooms[0].getNom());
                 } else {
+                    System.out.println("________________________________________________________________________________________________________");
                     System.out.println("No pots anar cap aquesta direcció.");
                 }
                 break;
+            default:
+                System.out.println("Aquesta instrucció no va aquí!!!!!!!");
         }
     }
 
     // pregunta per l'accio
     public static String menuVerbs() {
         String verbMenu;
-        System.out.println("Quina acció vols fer? (ANAR/DEIXAR/AGAFAR/USAR/INTERACTUAR)");
+        System.out.println("Quina acció vols fer? (ANAR/DEIXAR/AGAFAR/USAR/INTERACTUAR/LLEGIR)");
         verbMenu = controladorTeclat(); //controla que la instruccio introduida sigui la correcte, si no ho es, torna a preguntar
 
         return verbMenu;
@@ -443,12 +492,14 @@ public class Main {
                             System.out.println("________________________________________________________________________________________________________");
                             System.out.println("He agafat l'Item i l'he guardat a l'inventari");
                         } else {
+                            System.out.println("________________________________________________________________________________________________________");
                             System.out.println("Per agafar aquest Item necessites Usar una escala de má");
                         }
                     }
                 }
             }
         } else {
+            System.out.println("________________________________________________________________________________________________________");
             System.out.println("No pots fer aquesta acció perque no hi han Items a l'habitació o no hi arribes (necessites l'escala de má)");
         }
     }
@@ -469,6 +520,7 @@ public class Main {
             }
 
         } else {
+            System.out.println("________________________________________________________________________________________________________");
             System.out.println("No pots fer aquesta acció perque no tens Items L'INVENTARI");
         }
     }
@@ -495,12 +547,14 @@ public class Main {
                         i = capacitatItems; //forçem l'end del for
                         win = true; // aixo provoca l'aturada del bucle que continua amb la partida actual
                     } else {
+                        System.out.println("________________________________________________________________________________________________________");
                         System.out.println("No pots usar aquest Item aquí");
                     }
                 }
             }
 
         } else {
+            System.out.println("________________________________________________________________________________________________________");
             System.out.println("No pots fer aquesta acció perque no tens Items L'INVENTARI");
         }
     }
@@ -530,15 +584,37 @@ public class Main {
                 }
             }
         } else{
+            System.out.println("________________________________________________________________________________________________________");
             System.out.println("No pots fer aquesta acció perque no hi han ningun NPC a l'habitació");
         }
     }
 
+    // depenent de quina nota vol llegir es mostrara el contingut d'aquesta, en cas de que la tingui a l'inventari
+    public static void algoritmeLlegir(int hiHaItemJugador) {
+        String itemAUsar;
+
+        if (hiHaItemJugador > 0) { // controla si hi han items a l'inventari
+            System.out.println("Quina Nota  vols llegir?");
+            itemAUsar = controladorTeclat(); //control de String
+            for (int i = 0; i < capacitatItems; i++) {
+                if (itemAUsar.equals(items[i].getNom()) && items[i].getOnEstic().equals(jugador.getNom())) { // controlem que l'String sigui igual a l'item i que l'usuari tingui realment aquest Item a l'inventari
+                        System.out.println("________________________________________________________________________________________________________");
+                        System.out.println(items[i].getDescripcio());
+                        i = capacitatItems; //forçem l'end del for
+                }
+            }
+        } else {
+            System.out.println("________________________________________________________________________________________________________");
+            System.out.println("No pots fer aquesta acció perque no tens ninguna Nota a L'INVENTARI");
+        }
+    }
+
+    // Aquest algoritme de randomització sense repeticions està explicat 1 mètode més cap abaix
     public static int randomitzarItems() {
         int numArrayAleatoriItems = 0;
         int comptador = 0;
 
-        while (comptador != 4) {
+        while (comptador != capacitatItems) {
             numArrayAleatoriItems = (int) (Math.random()*8+0);
             comptador = 0;
             for (int i = 0; i < ItemsRandom.length; i++) {
@@ -554,58 +630,67 @@ public class Main {
         return numArrayAleatoriItems;
     }
 
+    // Randomització sense repetició per l'array de les habitacions (by: mi solito jeje)
     public static String randomitzarRooms() {
         int numArrayAleatoriItems = 0;
         int comptador = 0;
         String nomRoomAleatori ="";
 
         while (comptador != 9) {
-            numArrayAleatoriItems = (int) (Math.random()*9+0);
-            nomRoomAleatori = nomRooms[numArrayAleatoriItems];
-            comptador = 0;
+            numArrayAleatoriItems = (int) (Math.random()*9+0); // num aleatori entre 0 i 9
+            nomRoomAleatori = nomRooms[numArrayAleatoriItems]; // El num random és la posició de l'array que conte tots els noms de les habitacions aleatori entre 0 i 9
+            comptador = 0; // Inicialitzem el comptador a 0 perquè així s'aprofiti quer a cada volta
+
+            // Bàsicament el que es fa aquí es del nom que s'ha agafat aleatòriament de l'array "nomRooms", comprovem que no estigui repetit dins l'array de repeticions, si només 1 cop el nom està repetit el comptador -->
+                // --> no sumarà i el bucle es repetirà agafant un altre nom aleatori, així fins que tovi un nom que no estigui repetit
             for (int i = 0; i < RoomsRandom.length; i++) {
                 if (RoomsRandom[i] != nomRoomAleatori) {
                     comptador++;
                 }
             }
         }
+
+        // Un cop trobat el nom i comprovat que no estigui repetit l'introduïm dins l'array per saber en un futur que es necessiti buscar un nou nom aquest no estigui repetit i no hi hagi 2 sales amb el mateix nom
         RoomsRandom[properaLliureRooms] = nomRoomAleatori;
         properaLliureRooms++;
 
 
-        return nomRoomAleatori;
+        return nomRoomAleatori; // Retornem el nom de l'habitació, cercat aleatòriament
+        // Cosecha pròpia (5 hores, seguides molt dures de procés mental per arribar a aquesta solució (+ 1 h més de corregir bugs), satisfet, no, el següent :)
     }
 
+    // randomització simple
     public static int randomitzarSimple() {
         int numArrayAleatoriItems = 0;
 
-            numArrayAleatoriItems = (int) (Math.random()*8+0);
+            numArrayAleatoriItems = (int) (Math.random()*8+0); // num aleatori entre 0 i 8
 
-        return numArrayAleatoriItems;
+        return numArrayAleatoriItems; // retorna un numero aleatori que sera la posicio de l'array
     }
 
+    // descripcions de totes les habitacions
     public static void descripcio() {
         for (int i = 0; i < capacitatRooms; i++) {
             if (rooms[i].getNom().equals("cuina")) {
-                rooms[i].setDescripcio("descripcio cuina");
+                rooms[i].setDescripcio("Un espai molt gran, ple d'eines per cuinar i plats amb una pinta deliciosa a punt de ser servits, digne d'un palau com aquest... GRRRRRRRRRRR... hem sona la panxa del bé que olora aquí. Per algun motiu, crec que la cuinera està disposada a fer algun tipus de pacte");
             } else if (rooms[i].getNom().equals("magatzem")) {
-                rooms[i].setDescripcio("descripcio magatzem");
+                rooms[i].setDescripcio("Moltes caixes hi ha aquí, molts trastos... molta pols també... AAAAAAACHÍS... sniff...");
             } else if (rooms[i].getNom().equals("menjador")) {
-                rooms[i].setDescripcio("descripcio menjador");
+                rooms[i].setDescripcio("Aquí hi ha molta gent, més em val mourem sigil·losament, si em detecten, GAME OVER, així que al lorete... quina pinta tenen els plats de menjar... quina gana.");
             } else if (rooms[i].getNom().equals("bany")) {
-                rooms[i].setDescripcio("descripcio bany");
+                rooms[i].setDescripcio("QUINA PUDOR QUE FOT HOSTIA, amb el jala que s'estan fotent al menjador, millor que no quedar-se molta estona per aquí...");
             } else if (rooms[i].getNom().equals("sala")) {
-                rooms[i].setDescripcio("descripcio sala");
+                rooms[i].setDescripcio("Carai, quina llar de foc més gran i quines butaques més còmodes, donen ganes d'encendre-la i posar-se a dormir una bona estona... zzzZZZzzz...");
             } else if (rooms[i].getNom().equals("caballerisses")) {
-                rooms[i].setDescripcio("descripcio caballerisses");
+                rooms[i].setDescripcio("Quin tufo a merda que fot aquí, els cavalls dels nassos, ja podrien netejar més de seguit aquest lloc...");
             } else if (rooms[i].getNom().equals("ball")) {
-                rooms[i].setDescripcio("descripcio ball");
+                rooms[i].setDescripcio("Quin lloc més gran, sembla broma que estiguem en un espai tancat... sembla que estan preparant algun tipus d'esdeveniment important amb gent important, home no, estem en un palau, òbviament seran persones importants, sóc subnormal...");
             } else if (rooms[i].getNom().equals("entrada")) {
-                rooms[i].setDescripcio("descripcio entrada");
+                rooms[i].setDescripcio("Aquesta sala té una porta gegant, podria entrar un Brontosaurio i tot... JOOOODER, però hi ha bastant de corrent d'aire...");
             } else if (rooms[i].getNom().equals("gym")) {
-                rooms[i].setDescripcio("descripcio gym");
+                rooms[i].setDescripcio("Sembla que en JordiJor estigui tan gras, amb la maquinària de fer exercici físic que hi ha aquí muntada");
             } else if (rooms[i].getNom().equals("habJordiJor")) {
-                rooms[i].setDescripcio("descripcio habJordiJor");
+                rooms[i].setDescripcio("Habitació principal, on dorm l'emperador... perfecte, està dormint en aquest moment, amb l'espasa sagrada mel carrego instantani.");
             }
         }
     }
