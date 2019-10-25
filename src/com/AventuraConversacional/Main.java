@@ -9,6 +9,7 @@ public class Main {
     private static int capacitatItems = 4;
     private static int capacitatNPCs = 2;
     private static int properaLliureItems = 0;
+    private static int properaLliureRooms = 0;
     private static boolean soborn = false;
     private static boolean win = false;
 
@@ -25,9 +26,9 @@ public class Main {
     private static String again = "SI";
 
     private static int ItemsRandom [] = new int [capacitatItems];
-    private static String RoomsRandom [] = new String [capacitatRooms];
+    private static String RoomsRandom [] = new String [9];
 
-    private static String[] nomRooms = {"cuina", "magatzem", "menjador", "bany", "sala", "caballerisses", "ball", "entrada"};
+    private static String[] nomRooms = {"cuina", "magatzem", "menjador", "bany", "sala", "caballerisses", "ball", "entrada", "gym"};
 
     public static void main(String[] args) {
         while (again.equals("SI")) {
@@ -51,81 +52,81 @@ public class Main {
     // creem la array i coloquem on estaran totes les habitacions, amb tota la info dels paramentres ja introduida
     public static void crearMapa() {
 
+        String roomRandomitzada;
         rooms[0] = new Room();
-            rooms[0].setNom(randomitzarRooms());
-            rooms[0].setDescripcio("descripció cuina");
+            rooms[0].setNom(roomRandomitzada = randomitzarRooms());
             rooms[0].setPortaNord(false);
             rooms[0].setPortaSud(true);
             rooms[0].setPortaEst(true);
             rooms[0].setPortaOest(false);
             rooms[0].setEscalaAqui(false);
 
+        //roomRandomitzada = randomitzarRooms();
         rooms[1] = new Room();
             rooms[1].setNom(randomitzarRooms());
-            rooms[1].setDescripcio("descripció magatzem");
             rooms[1].setPortaNord(false);
             rooms[1].setPortaSud(true);
             rooms[1].setPortaEst(true);
             rooms[1].setPortaOest(true);
             rooms[1].setEscalaAqui(false);
 
+        //roomRandomitzada = randomitzarRooms();
         rooms[2] = new Room();
             rooms[2].setNom(randomitzarRooms());
-            rooms[2].setDescripcio("descripció menjador");
             rooms[2].setPortaNord(false);
             rooms[2].setPortaSud(true);
             rooms[2].setPortaEst(false);
             rooms[2].setPortaOest(true);
             rooms[2].setEscalaAqui(false);
 
+        //roomRandomitzada = randomitzarRooms();
         rooms[3] = new Room();
             rooms[3].setNom(randomitzarRooms());
-            rooms[3].setDescripcio("descripció bany");
             rooms[3].setPortaNord(true);
             rooms[3].setPortaSud(true);
             rooms[3].setPortaEst(true);
             rooms[3].setPortaOest(false);
             rooms[3].setEscalaAqui(false);
 
+        //roomRandomitzada = randomitzarRooms();
         rooms[4] = new Room();
             rooms[4].setNom(randomitzarRooms());
-            rooms[4].setDescripcio("descripció sala");
             rooms[4].setPortaNord(true);
             rooms[4].setPortaSud(true);
             rooms[4].setPortaEst(true);
             rooms[4].setPortaOest(true);
             rooms[4].setEscalaAqui(false);
 
+        //roomRandomitzada = randomitzarRooms();
         rooms[5] = new Room();
             rooms[5].setNom(randomitzarRooms());
-            rooms[5].setDescripcio("descripció caballerisses");
             rooms[5].setPortaNord(true);
             rooms[5].setPortaSud(true);
             rooms[5].setPortaEst(false);
             rooms[5].setPortaOest(true);
             rooms[5].setEscalaAqui(false);
 
+        //roomRandomitzada = randomitzarRooms();
         rooms[6] = new Room();
             rooms[6].setNom(randomitzarRooms());
-            rooms[6].setDescripcio("descripció ball");
             rooms[6].setPortaNord(true);
             rooms[6].setPortaSud(false);
             rooms[6].setPortaEst(true);
             rooms[6].setPortaOest(false);
             rooms[6].setEscalaAqui(false);
 
+        //roomRandomitzada = randomitzarRooms();
         rooms[7] = new Room();
             rooms[7].setNom(randomitzarRooms());
-            rooms[7].setDescripcio("descripció entrada");
             rooms[7].setPortaNord(true);
             rooms[7].setPortaSud(false);
             rooms[7].setPortaEst(true);
             rooms[7].setPortaOest(true);
             rooms[7].setEscalaAqui(false);
 
+        //String roomRandomitzada = randomitzarRooms();
         rooms[8] = new Room();
             rooms[8].setNom(randomitzarRooms());
-            rooms[8].setDescripcio("descripció gym");
             rooms[8].setPortaNord(true);
             rooms[8].setPortaSud(false);
             rooms[8].setPortaEst(false);
@@ -134,13 +135,13 @@ public class Main {
 
         rooms[9] = new Room();
             rooms[9].setNom("habJordiJor");
-            rooms[9].setDescripcio("descripció habJordiJor");
             rooms[9].setPortaNord(false);
             rooms[9].setPortaSud(false);
             rooms[9].setPortaEst(false);
             rooms[9].setPortaOest(false);
             rooms[9].setEscalaAqui(false);
 
+            descripcio();
             rooms[randomitzarSimple()].setEscalaAqui(true);
     }
 
@@ -276,7 +277,7 @@ public class Main {
                 } else if(jugador.getOnEstic() == rooms[6].getNom()) {
                     jugador.setOnEstic(rooms[7].getNom());
                 } else if(jugador.getOnEstic() == rooms[7].getNom()) {
-                    jugador.setOnEstic(rooms[8].getNom());
+                   System.out.println("No pots anar cap aquesta direcció.");
                 } else {
                    System.out.println("No pots anar cap aquesta direcció.");
                }
@@ -308,7 +309,7 @@ public class Main {
                 } else if(jugador.getOnEstic() == rooms[5].getNom()) {
                     jugador.setOnEstic(rooms[4].getNom());
                 } else if(jugador.getOnEstic() == rooms[7].getNom()) {
-                    jugador.setOnEstic(rooms[6].getNom());
+                    System.out.println("No pots anar cap aquesta direcció.");
                 } else if(jugador.getOnEstic() == rooms[8].getNom()) {
                     jugador.setOnEstic(rooms[7].getNom());
                 } else {
@@ -319,7 +320,7 @@ public class Main {
                 if(jugador.getOnEstic() == rooms[3].getNom()) {
                     jugador.setOnEstic(rooms[0].getNom());
                 } else if(jugador.getOnEstic() == rooms[4].getNom()) {
-                    jugador.setOnEstic(rooms[1].getNom());
+                    System.out.println("No pots anar cap aquesta direcció.");
                 } else if(jugador.getOnEstic() == rooms[5].getNom()) {
                     jugador.setOnEstic(rooms[2].getNom());
                 } else if(jugador.getOnEstic() == rooms[6].getNom()) {
@@ -540,7 +541,7 @@ public class Main {
         while (comptador != 4) {
             numArrayAleatoriItems = (int) (Math.random()*8+0);
             comptador = 0;
-            for (int i = 0; i < capacitatItems; i++) {
+            for (int i = 0; i < ItemsRandom.length; i++) {
                 if (ItemsRandom[i] != numArrayAleatoriItems) {
                     comptador++;
                 }
@@ -558,18 +559,18 @@ public class Main {
         int comptador = 0;
         String nomRoomAleatori ="";
 
-        while (comptador != 8) {
-            numArrayAleatoriItems = (int) (Math.random()*8+0);
+        while (comptador != 9) {
+            numArrayAleatoriItems = (int) (Math.random()*9+0);
             nomRoomAleatori = nomRooms[numArrayAleatoriItems];
             comptador = 0;
-            for (int i = 0; i < capacitatRooms; i++) {
+            for (int i = 0; i < RoomsRandom.length; i++) {
                 if (RoomsRandom[i] != nomRoomAleatori) {
                     comptador++;
                 }
             }
         }
-        RoomsRandom[properaLliureItems].equals(nomRoomAleatori);
-        properaLliureItems++;
+        RoomsRandom[properaLliureRooms] = nomRoomAleatori;
+        properaLliureRooms++;
 
 
         return nomRoomAleatori;
@@ -581,6 +582,32 @@ public class Main {
             numArrayAleatoriItems = (int) (Math.random()*8+0);
 
         return numArrayAleatoriItems;
+    }
+
+    public static void descripcio() {
+        for (int i = 0; i < capacitatRooms; i++) {
+            if (rooms[i].getNom().equals("cuina")) {
+                rooms[i].setDescripcio("descripcio cuina");
+            } else if (rooms[i].getNom().equals("magatzem")) {
+                rooms[i].setDescripcio("descripcio magatzem");
+            } else if (rooms[i].getNom().equals("menjador")) {
+                rooms[i].setDescripcio("descripcio menjador");
+            } else if (rooms[i].getNom().equals("bany")) {
+                rooms[i].setDescripcio("descripcio bany");
+            } else if (rooms[i].getNom().equals("sala")) {
+                rooms[i].setDescripcio("descripcio sala");
+            } else if (rooms[i].getNom().equals("caballerisses")) {
+                rooms[i].setDescripcio("descripcio caballerisses");
+            } else if (rooms[i].getNom().equals("ball")) {
+                rooms[i].setDescripcio("descripcio ball");
+            } else if (rooms[i].getNom().equals("entrada")) {
+                rooms[i].setDescripcio("descripcio entrada");
+            } else if (rooms[i].getNom().equals("gym")) {
+                rooms[i].setDescripcio("descripcio gym");
+            } else if (rooms[i].getNom().equals("habJordiJor")) {
+                rooms[i].setDescripcio("descripcio habJordiJor");
+            }
+        }
     }
 
 }
