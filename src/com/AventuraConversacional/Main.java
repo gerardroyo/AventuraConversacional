@@ -1,6 +1,8 @@
 package com.AventuraConversacional;
 // By Gerard Royo i Plà
 // Twitter: @RoshsKipo
+
+// FINISHED 25/10/2019 20:18
 import java.util.Scanner;
 
 public class Main {
@@ -378,24 +380,35 @@ public class Main {
                 }
                 break;
             case "ESCALES":
-                if(jugador.getOnEstic().equals(rooms[0].getNom())) {
-                    if (soborn == true) { // controlem que es mostri la info o no de l'escala al segon pis
-                        if (items[1].getOnEstic().equals(jugador.getNom())) { // controlem que el jugador tingui l'Item clau a l'inventari per poder accedir al 2n pis.
-                            jugador.setOnEstic(rooms[9].getNom());
+                for (int j = 0; j < capacitatRooms; j++) {
+                    if (rooms[j].getEscalaAqui() == true) {
+                        if(jugador.getOnEstic().equals(rooms[j].getNom())) {
+                            if (soborn == true) { // controlem que es mostri la info o no de l'escala al segon pis
+                                if (items[1].getOnEstic().equals(jugador.getNom())) { // controlem que el jugador tingui l'Item clau a l'inventari per poder accedir al 2n pis.
+                                    jugador.setOnEstic(rooms[9].getNom());
+                                } else {
+                                    System.out.println("________________________________________________________________________________________________________");
+                                    System.out.println("No tens la CLAU per accedir a aquesta habitació");
+                                }
+                            } else {
+                                System.out.println("________________________________________________________________________________________________________");
+                                System.out.println("No pots anar cap aquesta direcció. no soborn");
+                            }
+                        } else if(jugador.getOnEstic() == rooms[9].getNom()) {
+                            for (int o = 0; o < capacitatRooms; o++) {
+                                if (rooms[o].getEscalaAqui() == true) {
+                                    jugador.setOnEstic(rooms[o].getNom());
+                                    o = capacitatRooms;
+                                }
+                            }
+
                         } else {
                             System.out.println("________________________________________________________________________________________________________");
-                            System.out.println("No tens la CLAU per accedir a aquesta habitació");
+                            System.out.println("No pots anar cap aquesta direcció. No entra al primer if");
                         }
-                    } else {
-                        System.out.println("________________________________________________________________________________________________________");
-                        System.out.println("No pots anar cap aquesta direcció.");
                     }
-                } else if(jugador.getOnEstic() == rooms[9].getNom()) {
-                    jugador.setOnEstic(rooms[0].getNom());
-                } else {
-                    System.out.println("________________________________________________________________________________________________________");
-                    System.out.println("No pots anar cap aquesta direcció.");
                 }
+
                 break;
             default:
                 System.out.println("Aquesta instrucció no va aquí!!!!!!!");
