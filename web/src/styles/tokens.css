@@ -1,0 +1,10 @@
+@import "./typography.css";
+@import "./spacing.css";
+@import "./colors.css";
+@import "./radius.css";
+@import "./shadows.css";
+
+:root {
+  --bp-tablet: 48rem;
+  --bp-desktop: 64rem;
+}
